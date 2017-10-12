@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="machine-learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="基本概念监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。 输入空间，输出空间实例，特征向量，特征空间  回归问题：输入与输出变量均连续 分类问题：输出变量为有限的离散变量 标注问题：输入与输出均为变量序列  模型模型就是所要学习的条件概率或决策函数1F=&amp;#123;f|Y=f(x)&amp;#125; 1F=&amp;#123;P|P(Y|X)&amp;#125; 策略常用损失函数：">
+<meta name="keywords" content="machine-learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一、统计机器学习概论--统计机器学习方法">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/tj-introduction/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基本概念监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。 输入空间，输出空间实例，特征向量，特征空间  回归问题：输入与输出变量均连续 分类问题：输出变量为有限的离散变量 标注问题：输入与输出均为变量序列  模型模型就是所要学习的条件概率或决策函数1F=&amp;#123;f|Y=f(x)&amp;#125; 1F=&amp;#123;P|P(Y|X)&amp;#125; 策略常用损失函数：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic2.zhimg.com/50/afa034d52962681db09b4dc1060f8075_hd.png">
+<meta property="og:image" content="https://qph.ec.quoracdn.net/main-qimg-18cd74b05b850406e1c01b76b1cb8fd6">
+<meta property="og:image" content="https://pic2.zhimg.com/50/v2-26bad82395684dc7ba49dec9a29ad481_hd.png">
+<meta property="og:updated_time" content="2017-10-12T12:36:39.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一、统计机器学习概论--统计机器学习方法">
+<meta name="twitter:description" content="基本概念监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。 输入空间，输出空间实例，特征向量，特征空间  回归问题：输入与输出变量均连续 分类问题：输出变量为有限的离散变量 标注问题：输入与输出均为变量序列  模型模型就是所要学习的条件概率或决策函数1F=&amp;#123;f|Y=f(x)&amp;#125; 1F=&amp;#123;P|P(Y|X)&amp;#125; 策略常用损失函数：">
+<meta name="twitter:image" content="https://pic2.zhimg.com/50/afa034d52962681db09b4dc1060f8075_hd.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'U5I6S4B0BP',
+      apiKey: '0301e539ca5c28e8085d8564316e6278',
+      indexName: 'hexo-index',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/12/tj-introduction/"/>
+
+
+
+
+
+  <title>一、统计机器学习概论--统计机器学习方法 | Hexo</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?60e33b9ae0c7d2812d721cd194dcffd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/tj-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fengcs">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/32269?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一、统计机器学习概论--统计机器学习方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T20:35:29+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。</p>
+<p>输入空间，输出空间<br>实例，特征向量，特征空间</p>
+<ul>
+<li>回归问题：输入与输出变量均连续</li>
+<li>分类问题：输出变量为有限的离散变量</li>
+<li>标注问题：输入与输出均为变量序列</li>
+</ul>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>模型就是所要学习的条件概率或决策函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F=&#123;f|Y=f(x)&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F=&#123;P|P(Y|X)&#125;</div></pre></td></tr></table></figure>
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>常用损失函数：</p>
+<ol>
+<li>0-1损失函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,f(x))=\begin&#123;cases&#125;1, &amp; Y \neq f(x)\\0, &amp; Y = f(x)\end&#123;cases&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>绝对损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=|F-f(x)|</div></pre></td></tr></table></figure>
+</li>
+<li><p>平方损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=(Y-f(x))^2</div></pre></td></tr></table></figure>
+</li>
+<li><p>对数损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=-logP(Y|x)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>期望风险与经验风险</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">R_&#123;exp&#125;(f) \approx R_&#123;emp&#125;(f)=\frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))</div></pre></td></tr></table></figure>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>统计问题归结为最优化问题，统计学习的算法为求解最优化问题，</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>一味提高对训练数据的预测能力，所选模型的复杂度往往比真实模型高，这种现象称为过拟合。<br><img src="https://pic2.zhimg.com/50/afa034d52962681db09b4dc1060f8075_hd.png" alt="image"></p>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>在经验风险上加上一个正则化项或者罚项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\lambda J(f)</div></pre></td></tr></table></figure></p>
+<p>如在回归问题中，取w的二范式或者一范式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\frac&#123;\lambda&#125;&#123;2&#125; |w|^2</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\lambda |w|_1</div></pre></td></tr></table></figure>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>随机的将样本分为训练集（training set），验证集（validation set）和测试集（test set）。</p>
+<p>为解决样本不足情况：</p>
+<ul>
+<li>简单交叉验证：训练集/测试集（7：3），选出测试误差最小的模型</li>
+<li>N折交叉验证（N-fold cross valication）：将数据且分为N个不相交的子集，使用S-1个子集进行训练。</li>
+</ul>
+<h3 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h3><p>学习方法的泛化能力是指学习到的模型对位置数据的预测能力</p>
+<h3 id="生成式模型与判别式模型"><a href="#生成式模型与判别式模型" class="headerlink" title="生成式模型与判别式模型"></a>生成式模型与判别式模型</h3><ul>
+<li>生成式模型：由数据学习联合概率分布，然后求出条件概率密度作为预测模型。典型的有：朴素贝叶斯与隐马尔科夫模型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P(Y|X) = \frac&#123;P(X,Y)&#125;&#123;P(X)&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>判别式方法：由数据直接学习决策函数f(X)或者条件概率密度P(Y|X)作为预测函数。典型的有：logsitic回归/K邻近/感知机/决策树/最大熵/支持向量机/boosting/条件随机场</li>
+</ul>
+<h3 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h3><p><img src="https://qph.ec.quoracdn.net/main-qimg-18cd74b05b850406e1c01b76b1cb8fd6" alt="image"></p>
+<p>精确率（precision）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P = \frac&#123;TP&#125;&#123;TP+FP&#125;</div></pre></td></tr></table></figure></p>
+<p>召回率（recall）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">R = \frac&#123;TP&#125;&#123;TP+FN&#125;</div></pre></td></tr></table></figure></p>
+<p>F1值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\frac&#123;2&#125;&#123;F_1&#125; = \frac&#123;1&#125;&#123;P&#125; +\frac&#123;1&#125;&#123;R&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;F_1&#125; = \frac&#123;2TP&#125;&#123;2TP+FP+FN&#125;</div></pre></td></tr></table></figure>
+<p>另一个直观的图：<br><img src="https://pic2.zhimg.com/50/v2-26bad82395684dc7ba49dec9a29ad481_hd.png" alt="image"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine-learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/09/boston-housing/" rel="next" title="boston_housing">
+                <i class="fa fa-chevron-left"></i> boston_housing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/32269?v=3&s=460"
+               alt="fengcs" />
+          <p class="site-author-name" itemprop="name">fengcs</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略"><span class="nav-number">3.</span> <span class="nav-text">策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">4.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过拟合"><span class="nav-number">5.</span> <span class="nav-text">过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化"><span class="nav-number">6.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证"><span class="nav-number">7.</span> <span class="nav-text">交叉验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛化能力"><span class="nav-number">8.</span> <span class="nav-text">泛化能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成式模型与判别式模型"><span class="nav-number">9.</span> <span class="nav-text">生成式模型与判别式模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类问题"><span class="nav-number">10.</span> <span class="nav-text">分类问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fengcs</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.2"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

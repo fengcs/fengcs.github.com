@@ -308,6 +308,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/tj-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fengcs">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/32269?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/12/tj-introduction/" itemprop="url">一、统计机器学习概论--统计机器学习方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T20:35:29+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。</p>
+<p>输入空间，输出空间<br>实例，特征向量，特征空间</p>
+<ul>
+<li>回归问题：输入与输出变量均连续</li>
+<li>分类问题：输出变量为有限的离散变量</li>
+<li>标注问题：输入与输出均为变量序列</li>
+</ul>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>模型就是所要学习的条件概率或决策函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F=&#123;f|Y=f(x)&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">F=&#123;P|P(Y|X)&#125;</div></pre></td></tr></table></figure>
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>常用损失函数：</p>
+<ol>
+<li>0-1损失函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,f(x))=\begin&#123;cases&#125;1, &amp; Y \neq f(x)\\0, &amp; Y = f(x)\end&#123;cases&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>绝对损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=|F-f(x)|</div></pre></td></tr></table></figure>
+</li>
+<li><p>平方损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=(Y-f(x))^2</div></pre></td></tr></table></figure>
+</li>
+<li><p>对数损失函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">L(Y,F(x))=-logP(Y|x)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>期望风险与经验风险</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">R_&#123;exp&#125;(f) \approx R_&#123;emp&#125;(f)=\frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))</div></pre></td></tr></table></figure>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>统计问题归结为最优化问题，统计学习的算法为求解最优化问题，</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>一味提高对训练数据的预测能力，所选模型的复杂度往往比真实模型高，这种现象称为过拟合。<br><img src="https://pic2.zhimg.com/50/afa034d52962681db09b4dc1060f8075_hd.png" alt="image"></p>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>在经验风险上加上一个正则化项或者罚项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\lambda J(f)</div></pre></td></tr></table></figure></p>
+<p>如在回归问题中，取w的二范式或者一范式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\frac&#123;\lambda&#125;&#123;2&#125; |w|^2</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\min_&#123;f \in F&#125; \frac&#123;1&#125;&#123;N&#125;\sum_&#123;i=1&#125;^N L(y_i,f(x_i))+\lambda |w|_1</div></pre></td></tr></table></figure>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>随机的将样本分为训练集（training set），验证集（validation set）和测试集（test set）。</p>
+<p>为解决样本不足情况：</p>
+<ul>
+<li>简单交叉验证：训练集/测试集（7：3），选出测试误差最小的模型</li>
+<li>N折交叉验证（N-fold cross valication）：将数据且分为N个不相交的子集，使用S-1个子集进行训练。</li>
+</ul>
+<h3 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h3><p>学习方法的泛化能力是指学习到的模型对位置数据的预测能力</p>
+<h3 id="生成式模型与判别式模型"><a href="#生成式模型与判别式模型" class="headerlink" title="生成式模型与判别式模型"></a>生成式模型与判别式模型</h3><ul>
+<li>生成式模型：由数据学习联合概率分布，然后求出条件概率密度作为预测模型。典型的有：朴素贝叶斯与隐马尔科夫模型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P(Y|X) = \frac&#123;P(X,Y)&#125;&#123;P(X)&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>判别式方法：由数据直接学习决策函数f(X)或者条件概率密度P(Y|X)作为预测函数。典型的有：logsitic回归/K邻近/感知机/决策树/最大熵/支持向量机/boosting/条件随机场</li>
+</ul>
+<h3 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h3><p><img src="https://qph.ec.quoracdn.net/main-qimg-18cd74b05b850406e1c01b76b1cb8fd6" alt="image"></p>
+<p>精确率（precision）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P = \frac&#123;TP&#125;&#123;TP+FP&#125;</div></pre></td></tr></table></figure></p>
+<p>召回率（recall）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">R = \frac&#123;TP&#125;&#123;TP+FN&#125;</div></pre></td></tr></table></figure></p>
+<p>F1值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\frac&#123;2&#125;&#123;F_1&#125; = \frac&#123;1&#125;&#123;P&#125; +\frac&#123;1&#125;&#123;R&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;F_1&#125; = \frac&#123;2TP&#125;&#123;2TP+FP+FN&#125;</div></pre></td></tr></table></figure>
+<p>另一个直观的图：<br><img src="https://pic2.zhimg.com/50/v2-26bad82395684dc7ba49dec9a29ad481_hd.png" alt="image"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/09/boston-housing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1027,7 +1199,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1040,7 +1212,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
