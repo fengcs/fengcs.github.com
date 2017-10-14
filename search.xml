@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[二、感知机--统计机器学习方法]]></title>
+    <url>%2F2017%2F10%2F14%2Ftj-perceptron%2F</url>
+    <content type="text"><![CDATA[感知机模型 由输入空间到输出空间的如下函数称为感知机： f(x)=sign(w⋅x+b)f(x)=sign(w \cdot x+b) f(x)=sign(w⋅x+b) $ w\in R^n $ 叫做权值（weight），$ b\in R 叫做偏置（bias）， w \cdot x $是向量的内积，sign是符号函数，如下所示： sign(x)={+1,x≥0−1,x&lt;0sign(x)=\begin{cases}+1, &amp; x\geq 0 \\ -1, &amp; x&lt;0 \end{cases} sign(x)={​+1,​−1,​​​x≥0​x&lt;0​​ 感知机激励函数(激活函数) 激活函数是用来加入非线性因素的，若没有激活函数，多层的网络模型可累加为一层网络模型。 阶跃函数 sign(x)={+1,x≥0−1,x&lt;0sign(x)=\begin{cases}+1, &amp; x\geq 0 \\ -1, &amp; x&lt;0 \end{cases} sign(x)={​+1,​−1,​​​x≥0​x&lt;0​​ sigmoid函数 S(x)=11+e−xS(x)=\frac{1}{1+e^{-x}} S(x)=​1+e​−x​​​​1​​ S′(x)=S(x)∗(1−S(x))S&#x27;(x)= S(x)*(1-S(x)) S​′​​(x)=S(x)∗(1−S(x)) 感知机的学习策略 定义训练集： T={(x1,y1),(x2,y2),...,(xN,yN)}T=\{ (x_1,y_1),(x_2,y_2),...,(x_N,y_N) \} T={(x​1​​,y​1​​),(x​2​​,y​2​​),...,(x​N​​,y​N​​)} 其中$ x_i\in X=R^n $ ，$ y_i\in Y={+1, -1} $， $ i=1,2,…,N $，M为误分类点集合。感知机学习的损失函数定义为： L(W,b)=∑xi∈Myi(w⋅xi+b)L(W,b) = \sum_{x_i\in M} y_i(w \cdot x_i+b) L(W,b)=​x​i​​∈M​∑​​y​i​​(w⋅x​i​​+b) 感知机学习算法 感知机学习算法的原始形式 输入：训练数据集 $ T={ (x_1,y_1),(x_2,y_2),…,(x_N,y_N) } ，其中 x_i\in R^n $ ，$ y_i\in {+1, -1} $， $ i=1,2,…,N ，学习率 \eta(0 \leq \eta \leq1) $ 输出：$ w,b $； 感知机模型 $ f(x)=sign(w \cdot x+b) $ 选取初始值$ w_0,b_0 $ 在训练集中选取数据$ x_i,y_i $ 如果$ y_i(w \cdot x_i+b) \leq 0 $ w←w+ηyixi w \leftarrow w+\eta y_ix_i w←w+ηy​i​​x​i​​ b←b+ηyi b \leftarrow b+\eta y_i b←b+ηy​i​​ 转至2，直至训练集中没有误分类点 感知机学习算法的对偶形式 输入：训练数据集 $ T={ (x_1,y_1),(x_2,y_2),…,(x_N,y_N) } ，其中 x_i\in R^n $ ，$ y_i\in {+1, -1} $， $ i=1,2,…,N ，学习率 \eta(0 \leq \eta \leq1) $ 输出：$ \alpha,b $； 感知机模型 $ f(x)=sign(\sum_{j=1}^N \alpha_j y_j x_j \cdot x+b) ； 其中 \alpha=(\alpha_1,\alpha_2,…,\alpha_N )^T $，每一位为常数 选取初始值$ \alpha \leftarrow 0, b \leftarrow 0 $ 在训练集中选取数据$ x_i,y_i $ 如果$ y_i(\sum_{j=1}^N \alpha_j y_j x_j \cdot x_i+b) \leq 0 $ αi←αi+η \alpha_i \leftarrow \alpha_i+\eta α​i​​←α​i​​+η b←b+ηyi b \leftarrow b+\eta y_i b←b+ηy​i​​ 转至2，直至训练集中没有误分类点]]></content>
+      <tags>
+        <tag>machine-learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[一、统计机器学习概论--统计机器学习方法]]></title>
     <url>%2F2017%2F10%2F12%2Ftj-introduction%2F</url>
     <content type="text"><![CDATA[基本概念 监督学习：学习一个模型，使模型能对任意给定的输入，对其相应的输出做出一个很好的预测。 输入空间，输出空间 实例，特征向量，特征空间 回归问题：输入与输出变量均连续 分类问题：输出变量为有限的离散变量 标注问题：输入与输出均为变量序列 模型 模型就是所要学习的条件概率或决策函数 F={f∣Y=f(x)}F = \{ f | Y = f(x)\} F={f∣Y=f(x)} F={P∣P(Y∣X)}F=\{P|P(Y|X)\} F={P∣P(Y∣X)} 策略 常用损失函数： 0-1损失函数 L(Y,f(x))={1,Y≠f(x)0,Y=f(x)L(Y,f(x))=\begin{cases}1, &amp; Y \neq f(x)\\0, &amp; Y = f(x)\end{cases} L(Y,f(x))={​1,​0,​​​Y≠f(x)​Y=f(x)​​ 绝对损失函数 L(Y,F(x))=∣F−f(x)∣L(Y,F(x))=|F-f(x)| L(Y,F(x))=∣F−f(x)∣ 平方损失函数 L(Y,F(x))=(Y−f(x))2L(Y,F(x))=(Y-f(x))^2 L(Y,F(x))=(Y−f(x))​2​​ 对数损失函数 L(Y,F(x))=−logP(Y∣x)L(Y,F(x))=-logP(Y|x) L(Y,F(x))=−logP(Y∣x) 期望风险与经验风险 Rexp(f)≈Remp(f)=1N∑i=1NL(yi,f(xi))R_{exp}(f) \approx R_{emp}(f)=\frac{1}{N}\sum_{i=1}^N L(y_i,f(x_i)) R​exp​​(f)≈R​emp​​(f)=​N​​1​​​i=1​∑​N​​L(y​i​​,f(x​i​​)) 算法 统计问题归结为最优化问题，统计学习的算法为求解最优化问题， 过拟合 一味提高对训练数据的预测能力，所选模型的复杂度往往比真实模型高，这种现象称为过拟合。 正则化 在经验风险上加上一个正则化项或者罚项 minf∈F1N∑i=1NL(yi,f(xi))+λJ(f)\min_{f \in F} \frac{1}{N}\sum_{i=1}^N L(y_i,f(x_i))+\lambda J(f) ​f∈F​min​​​N​​1​​​i=1​∑​N​​L(y​i​​,f(x​i​​))+λJ(f) 如在回归问题中，取w的二范式或者一范式 minf∈F1N∑i=1NL(yi,f(xi))+λ2∣w∣2\min_{f \in F} \frac{1}{N}\sum_{i=1}^N L(y_i,f(x_i))+\frac{\lambda}{2} |w|^2 ​f∈F​min​​​N​​1​​​i=1​∑​N​​L(y​i​​,f(x​i​​))+​2​​λ​​∣w∣​2​​ minf∈F1N∑i=1NL(yi,f(xi))+λ∣w∣1\min_{f \in F} \frac{1}{N}\sum_{i=1}^N L(y_i,f(x_i))+\lambda |w|_1 ​f∈F​min​​​N​​1​​​i=1​∑​N​​L(y​i​​,f(x​i​​))+λ∣w∣​1​​ 交叉验证 随机的将样本分为训练集（training set），验证集（validation set）和测试集（test set）。 为解决样本不足情况： 简单交叉验证：训练集/测试集（7：3），选出测试误差最小的模型 N折交叉验证（N-fold cross valication）：将数据且分为N个不相交的子集，使用S-1个子集进行训练。 泛化能力 学习方法的泛化能力是指学习到的模型对位置数据的预测能力 生成式模型与判别式模型 生成式模型：由数据学习联合概率分布，然后求出条件概率密度作为预测模型。典型的有：朴素贝叶斯与隐马尔科夫模型 P(Y∣X)=P(X,Y)P(X)P(Y|X) = \frac{P(X,Y)}{P(X)} P(Y∣X)=​P(X)​​P(X,Y)​​ 判别式方法：由数据直接学习决策函数f(X)或者条件概率密度P(Y|X)作为预测函数。典型的有：logsitic回归/K邻近/感知机/决策树/最大熵/支持向量机/boosting/条件随机场 分类问题 精确率（precision）: P=TPTP+FPP = \frac{TP}{TP+FP} P=​TP+FP​​TP​​ 召回率（recall）: R=TPTP+FNR = \frac{TP}{TP+FN} R=​TP+FN​​TP​​ F1值： 2F1=1P+1R\frac{2}{F_1} = \frac{1}{P} +\frac{1}{R} ​F​1​​​​2​​=​P​​1​​+​R​​1​​ F1=2TP2TP+FP+FN{F_1} = \frac{2TP}{2TP+FP+FN} F​1​​=​2TP+FP+FN​​2TP​​ 另一个直观的图：]]></content>
@@ -30,10 +38,5 @@
       <tags>
         <tag>hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F09%2F29%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick Start Create a new post 1$ hexo new "My New Post" More info: Writing Run server 1$ hexo server More info: Server Generate static files 1$ hexo generate More info: Generating Deploy to remote sites 1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
